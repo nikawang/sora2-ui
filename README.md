@@ -70,10 +70,6 @@ npm install
 在 `src/backend` 目录下创建 `.env` 文件（可选）：
 
 ```env
-# Azure OpenAI 配置（也可以在 Web UI 中配置）
-AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com
-AZURE_OPENAI_API_KEY=your-api-key-here
-
 # 服务器配置
 PORT=8080
 ```
