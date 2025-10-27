@@ -94,6 +94,10 @@ export default {
           "0%, 100%": { transform: "translate(-50%, -50%) scale(1)", opacity: "1" },
           "50%": { transform: "translate(-50%, -50%) scale(1.5)", opacity: "0.6" },
         },
+        "car-bounce": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-4px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -105,6 +109,7 @@ export default {
         "spark-fly-4": "spark-fly-4 0.85s ease-out infinite",
         "spark-fly-5": "spark-fly-5 0.75s ease-out infinite",
         "spark-core": "spark-core 0.6s ease-in-out infinite",
+        "car-bounce": "car-bounce 0.6s ease-in-out infinite",
       },
     },
   },

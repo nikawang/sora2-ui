@@ -281,36 +281,105 @@ export function HistoryPage() {
                       </span>
                     </div>
                   )}
-                  {/* 进度条 */}
+                  {/* 进度条 - 小车效果 */}
                   {['queued', 'processing', 'active'].includes(item.status) && progress !== undefined && (
-                    <div className="absolute bottom-0 left-0 right-0 h-2 bg-gray-300 overflow-visible">
-                      <div
-                        className="h-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 transition-all duration-300 relative overflow-visible"
-                        style={{ width: `${progress}%` }}
-                      >
-                        {/* 脉冲动画层 */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-shimmer"></div>
+                    <div className="absolute bottom-0 left-0 right-0 px-2 pb-2">
+                      <div className="relative h-10 bg-gray-200 rounded-full overflow-visible">
+                        {/* 道路标线 - 放在底部 */}
+                        <div className="absolute bottom-2 left-0 right-0 flex items-center justify-center gap-4 px-4">
+                          {[...Array(8)].map((_, i) => (
+                            <div key={i} className="w-8 h-1 bg-gray-400 rounded opacity-40"></div>
+                          ))}
+                        </div>
                         
-                        {/* 火花飞溅效果 - 在进度条末端 */}
-                        {progress > 0 && (
-                          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 -translate-x-1">
-                            {/* 火花1 - 向上飞 */}
-                            <div className="absolute w-1 h-1 bg-yellow-400 rounded-full animate-spark-fly-1" style={{ left: '50%', top: '50%' }}></div>
-                            {/* 火花2 - 向右上飞 */}
-                            <div className="absolute w-1 h-1 bg-orange-400 rounded-full animate-spark-fly-2" style={{ left: '50%', top: '50%' }}></div>
-                            {/* 火花3 - 向右飞 */}
-                            <div className="absolute w-0.5 h-0.5 bg-yellow-300 rounded-full animate-spark-fly-3" style={{ left: '50%', top: '50%' }}></div>
-                            {/* 火花4 - 向右下飞 */}
-                            <div className="absolute w-1 h-1 bg-red-400 rounded-full animate-spark-fly-4" style={{ left: '50%', top: '50%' }}></div>
-                            {/* 火花5 - 向下飞 */}
-                            <div className="absolute w-0.5 h-0.5 bg-orange-300 rounded-full animate-spark-fly-5" style={{ left: '50%', top: '50%' }}></div>
-                            {/* 中心亮点 */}
-                            <div className="absolute w-2 h-2 bg-white rounded-full animate-spark-core" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}></div>
+                        {/* 小车 - 在虚线上方行驶 */}
+                        <div
+                          className="absolute bottom-3 transition-all duration-500 ease-out"
+                          style={{ 
+                            left: `calc(${progress}% - 22px)`,
+                          }}
+                        >
+                          {/* 小车主体 - SVG - 简洁精致设计 */}
+                          <div 
+                            style={{
+                              animation: 'carBounce 0.5s ease-in-out infinite',
+                            }}
+                          >
+                            <svg 
+                              width="44" 
+                              height="28" 
+                              viewBox="0 0 44 28" 
+                              className="drop-shadow-lg"
+                            >
+                              <defs>
+                                {/* 车身渐变 - 简洁红色 */}
+                                <linearGradient id="carGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                  <stop offset="0%" style={{ stopColor: '#ef4444', stopOpacity: 1 }} />
+                                  <stop offset="100%" style={{ stopColor: '#dc2626', stopOpacity: 1 }} />
+                                </linearGradient>
+                              </defs>
+                              
+                              {/* 底部阴影 */}
+                              <ellipse cx="22" cy="24" rx="18" ry="2" fill="#000" opacity="0.12" />
+                              
+                              {/* 车身主体 - 简洁流线型 */}
+                              <rect x="6" y="14" width="32" height="8" rx="4" fill="url(#carGradient)" />
+                              
+                              {/* 车顶 */}
+                              <path 
+                                d="M 12 10 Q 12 8 14 8 L 30 8 Q 32 8 32 10 L 32 14 L 12 14 Z" 
+                                fill="url(#carGradient)"
+                              />
+                              
+                              {/* 车窗 - 简洁蓝色 */}
+                              <rect x="14" y="9" width="7" height="4" rx="0.5" fill="#bfdbfe" opacity="0.85" />
+                              <rect x="23" y="9" width="7" height="4" rx="0.5" fill="#bfdbfe" opacity="0.85" />
+                              
+                              {/* 前大灯 - 左侧（车头） */}
+                              <circle cx="8" cy="17" r="2" fill="#fef08a" opacity="0.9" />
+                              <circle cx="8" cy="17" r="1" fill="#fde047" />
+                              
+                              {/* 尾灯 - 右侧 */}
+                              <circle cx="36" cy="17" r="1.5" fill="#fca5a5" opacity="0.9" />
+                              <circle cx="36" cy="17" r="0.7" fill="#f87171" />
+                              
+                              {/* 车轮 - 前轮（左） */}
+                              <g>
+                                <circle cx="13" cy="22" r="4" fill="#1f2937" />
+                                <circle cx="13" cy="22" r="2.5" fill="#374151" />
+                                <circle cx="13" cy="22" r="1.2" fill="#6b7280" />
+                              </g>
+                              
+                              {/* 车轮 - 后轮（右） */}
+                              <g>
+                                <circle cx="31" cy="22" r="4" fill="#1f2937" />
+                                <circle cx="31" cy="22" r="2.5" fill="#374151" />
+                                <circle cx="31" cy="22" r="1.2" fill="#6b7280" />
+                              </g>
+                              
+                              {/* 车顶高光 */}
+                              <line x1="14" y1="8.5" x2="30" y2="8.5" stroke="#fca5a5" strokeWidth="1" opacity="0.5" />
+                            </svg>
                           </div>
-                        )}
+                          
+                          {/* 百分比显示 - 在小车上方 */}
+                          <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                            <span className="text-xs font-bold text-gray-700 bg-white px-2 py-0.5 rounded shadow-sm">
+                              {Math.round(progress)}%
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
+                  
+                  {/* 添加 keyframes 动画定义 */}
+                  <style>{`
+                    @keyframes carBounce {
+                      0%, 100% { transform: translateY(0px); }
+                      50% { transform: translateY(-2px); }
+                    }
+                  `}</style>
                 </div>
 
                 {/* 内容信息 */}
